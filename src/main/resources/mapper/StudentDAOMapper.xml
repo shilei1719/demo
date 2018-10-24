@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.StudentDAO">
+    <select id="getAllStudents" resultType = "Student">
+       select * from student where is_delete = 'n'
+    </select>
+
+    <select id="searchStudents" parameterType="Student" resultType = "Student">
+       select * from student
+        <where>
+            is_delete = 'n'
+            <if test="(name !=null) and (name !='')" >
+                and  name like   concat(concat("%",#{name}),"%")
+            </if>
+            <if test="(major!=null) and (major!='')">
+                and  major like   concat(concat("%",#{major}),"%")
+            </if>
+        </where>
+    </select>
+
+    <insert id="addStudent" parameterType="Student">
+        insert into student (name, student_no, major, enrollment_date)
+        values (#{name}, #{studentNo},#{major},#{enrollmentDate})
+    </insert>
+
+    <update id="updateStudent" parameterType="Student">
+      update student 
+      <set>
+          <if test="name !=null and name !='' ">
+              name=#{name},
+          </if>
+          <if test="major !=null and major !='' ">
+              major=#{major},
+          </if>
+          <if test="enrollmentDate !=null and enrollmentDate !='' ">
+              enrollment_date=#{enrollmentDate},
+          </if>
+      </set>
+      WHERE student_no=#{studentNo}
+  </update>
+
+    <update id="deleteStudent" parameterType="java.util.List">
+        update student set is_delete = 'y' WHERE student_no in
+        <foreach collection="list" item="studentNo" separator="," open="(" close=")">
+            #{studentNo}
+        </foreach>
+    </update>
+
+</mapper>

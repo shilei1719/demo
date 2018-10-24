@@ -1,0 +1,28 @@
+spring:
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://119.23.138.209:3306/student
+      username: root
+      password: root
+  jpa:
+    show-sql: true
+# mybatis配置
+mybatis:
+  # 单数据源  配置映射类所在包名
+  type-aliases-package: com.example.demo.entity
+  # 配置mapper xml文件所在路径
+  mapper-locations:
+    - mapper/*.xml
+  configuration:
+      use-column-label: true # 使用列别名替换别名，默认true
+      map-underscore-to-camel-case: true #开启驼峰命名转换
+      call-setters-on-nulls: true # 在null时也调用 setter
+
+#服务器配置
+server:
+      port: 8080
+      servlet:
+        context-path: /demo
+logging:
+      level:
+          com.hust: DEBUG
