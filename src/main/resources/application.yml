@@ -1,9 +1,9 @@
 spring:
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://119.23.138.209:3306/student
-      username: root
-      password: root
+      url: jdbc:mysql://
+      username: 
+      password: 
   jpa:
     show-sql: true
 # mybatis配置
